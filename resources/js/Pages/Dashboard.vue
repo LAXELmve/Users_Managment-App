@@ -1,6 +1,15 @@
 <script setup>
+import { onMounted } from 'vue';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
+onMounted(() => {
+    if (!localStorage.getItem('dashboardReloaded')) {
+        localStorage.setItem('dashboardReloaded', 'true'); // Marca que ya se recargó
+        window.location.reload(); // Forzar recarga del navegador
+    } else {
+        localStorage.removeItem('dashboardReloaded'); // Limpia la marca después de la recarga
+    }
+});
 </script>
 
 <template>
