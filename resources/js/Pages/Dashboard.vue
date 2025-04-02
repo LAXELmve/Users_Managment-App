@@ -20,7 +20,7 @@ onMounted(() => {
             <h2
                 class="text-xl font-semibold leading-tight text-gray-800"
             >
-                Dashboard
+                Home
             </h2>
         </template>
 
@@ -29,8 +29,11 @@ onMounted(() => {
                 <div
                     class="overflow-hidden bg-white shadow-sm sm:rounded-lg"
                 >
-                    <div class="p-6 text-gray-900">
-                        You're logged in!
+                    <div v-if="is('admin')" class="p-6 text-gray-900">
+                        Como administrador tienes acceso a funciones para agregar, editar, eliminar y visualizar usuarios. De igual manera puedes acceder a la sección de "Perfil".
+                    </div>
+                    <div v-if="is('user')" class="p-6 text-gray-900">
+                        Como usuario estándar tienes acceso a la sección de "Perfil".
                     </div>
                 </div>
             </div>
