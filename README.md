@@ -2,7 +2,7 @@
 
 Este proyecto es una aplicación desarrollada con Laravel Breeze, Vue.js e Inertia.js. Su propósito principal es gestionar usuarios, proporcionando una interfaz moderna y eficiente para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre la entidad `Users`.
 
-![VIsta principal](public\images\readme\example_1.jpeg)
+![VIsta principal](public/images/readme/example_1.jpeg)
 
 ## Características principales
 
