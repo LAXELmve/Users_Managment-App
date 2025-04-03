@@ -4,7 +4,7 @@ import { Head } from '@inertiajs/vue3';
 import Swal from 'sweetalert2';
 import { useForm } from '@inertiajs/vue3';
 import UsersModal from '@/Components/UsersModal.vue';
-import Paginator from '@/Components/Paginator.vue';
+import Pagination from '@/Components/Pagination.vue';
 
 const props = defineProps({
     users: {
@@ -98,7 +98,7 @@ const openModal = (user) => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr v-for="user, i in users" :key="user.id">
+                                            <tr v-for="user, i in users.data" :key="user.id">
                                                 <td>{{ i + 1 }}</td>
                                                 <td>{{ user.name }}</td>
                                                 <td>{{ user.email }}</td>
@@ -132,7 +132,7 @@ const openModal = (user) => {
                                         </tbody>
                                     </table>
 
-                                    <Paginator :paginator="users" />
+                                    <Pagination class="mt-3 mb-3" :links="users.links"  />
 
                                 </div>
                             </div>

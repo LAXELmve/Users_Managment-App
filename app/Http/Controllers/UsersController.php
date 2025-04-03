@@ -32,7 +32,7 @@ class UsersController extends Controller
     public function index(): Response
     {
         if (self::userRoleValidation()) {
-            $users = User::with('roles')->get();
+            $users = User::with('roles')->paginate(10);
             return Inertia::render('Users/Index', [
                 'users' => $users,
             ]);
