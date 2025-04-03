@@ -16,8 +16,8 @@ use Inertia\Response;
 class UsersController extends Controller
 {
     private const PHONE_REGEX = '/^(\+\d{1,3}[-.\s]?)?' .
-                            '\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})' .
-                            '(( ?(x|ext|ext.)\d+)?)$/i';
+                                '\(?(\d{3})\)?[-.\s]?(\d{3})[-.\s]?(\d{4})' .
+                                '(( ?(x|ext|ext.)\d+)?)$/i';
     
     public function userRoleValidation() {
         /** @var \App\Models\User $user */
@@ -32,7 +32,7 @@ class UsersController extends Controller
     public function index(): Response
     {
         if (self::userRoleValidation()) {
-            $users = User::all();
+            $users = User::with('roles')->get();
             return Inertia::render('Users/Index', [
                 'users' => $users,
             ]);
@@ -57,7 +57,7 @@ class UsersController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|lowercase|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
-                'phone' => 'string|max:20|regex:' . self::PHONE_REGEX,
+                'phone' => ['string', 'max:20', 'regex:' . self::PHONE_REGEX],
             ]);
 
             $user = User::create([
@@ -66,6 +66,8 @@ class UsersController extends Controller
                 'password' => bcrypt($request->password),
                 'phone' => $request->phone,
             ]);
+
+            $user->assignRole('user');
 
             return Redirect::route('users.index');
         }
@@ -77,19 +79,19 @@ class UsersController extends Controller
     {
         if (self::userRoleValidation()) {
             $user = User::findOrFail($id);
-
+            /* dd($request->all()); */
             $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|string|lowercase|email|max:255|unique:users,email',
-                'password' => 'string|min:8',
+                'name' => 'nullable|string|max:255',
+                'email' => 'nullable|string|lowercase|email|max:255|unique:users,email',
+                'password' => 'nullable|string|min:8',
                 'phone' => 'string|max:20|regex:' . self::PHONE_REGEX,
             ]);
 
             $user->update([
-                'name' => $request->name,
-                'email' => $request->email,
+                'name' => $request->name ? $request->name : $user->name,
+                'email' => $request->email ? $request->email : $user->email,
                 'password' => $request->password ? bcrypt($request->password) : $user->password,
-                'phone' => $request->phone,
+                'phone' => $request->phone ? $request->phone : $user->phone,
             ]);
 
             return Redirect::route('users.index');
