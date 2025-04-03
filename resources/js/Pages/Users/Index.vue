@@ -148,7 +148,7 @@ const openModal = (user) => {
                                                 <td class="text-center">
                                                     <!-- Cambiar Role -->
                                                     <button 
-                                                        class="btn btn-danger"
+                                                        class="btn btn-danger me-2"
                                                         @click="changeRoleUser(user.id, user.name)"
                                                         title="Cambiar Rol"
                                                         >
@@ -157,7 +157,7 @@ const openModal = (user) => {
 
                                                     <!-- Editar -->
                                                     <button 
-                                                        class="btn btn-warning"
+                                                        class="btn btn-warning me-2"
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalEdit"
                                                         @click="openModal(user)"
@@ -168,7 +168,7 @@ const openModal = (user) => {
 
                                                     <!-- Eliminar -->
                                                     <button 
-                                                        class="btn btn-danger"
+                                                        class="btn btn-danger me-2"
                                                         @click="deleteUser(user.id, user.name)"
                                                         title="Eliminar Usuario"
                                                         >
