@@ -1,66 +1,113 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Users Management App
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este proyecto es una aplicación desarrollada con Laravel Breeze, Vue.js e Inertia.js. Su propósito principal es gestionar usuarios, proporcionando una interfaz moderna y eficiente para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre la entidad `Users`.
 
-## About Laravel
+## Características principales
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Gestión de usuarios**: La aplicación permite crear, visualizar, editar y eliminar usuarios. Así como exportar los registros en un archivo CSV.
+- **Interfaz dinámica**: Utiliza Vue.js e Inertia.js para ofrecer una experiencia de usuario fluida y dinámica.
+- **Autenticación**: Laravel Breeze proporciona un sistema de autenticación básico, incluyendo registro, inicio de sesión y recuperación de contraseñas.
+- **Vistas personalizadas**: Las vistas relacionadas con la gestión de usuarios se encuentran en la carpeta `resources/js/Pages/Users` y se utilizan componentes de `resources/js/Components`.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Estructura del proyecto
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Entidad `Users`
+La entidad `Users` representa a los usuarios de la aplicación. Incluye atributos como nombre, correo electrónico, contraseña, teléfono y cualquier otro campo relevante para la gestión de usuarios.
+Esta entidad utiliza SoftDeletes para conservar la información de cada usuario registrado.
 
-## Learning Laravel
+### Tablas de Spatie Laravel/Permission
+1. **`permissions`**:
+   - Contiene los permisos disponibles en la aplicación.
+   - Campos principales:
+     - `id`: Identificador único.
+     - `name`: Nombre del permiso (ej., `create_users`, `edit_users`).
+     - `guard_name`: Nombre del guard (ej., `web`).
+     - `created_at` y `updated_at`: Timestamps.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+2. **`roles`**:
+   - Contiene los roles que agrupan permisos.
+   - Campos principales:
+     - `id`: Identificador único.
+     - `name`: Nombre del rol (ej., `admin`, `user`).
+     - `guard_name`: Nombre del guard.
+     - `created_at` y `updated_at`: Timestamps.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+3. **`model_has_permissions`**:
+   - Relaciona modelos (como `User`) con permisos específicos.
+   - Campos principales:
+     - `permission_id`: ID del permiso.
+     - `model_type`: Tipo de modelo (ej., `App\Models\User`).
+     - `model_id`: ID del modelo relacionado.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+4. **`model_has_roles`**:
+   - Relaciona modelos (como `User`) con roles específicos.
+   - Campos principales:
+     - `role_id`: ID del rol.
+     - `model_type`: Tipo de modelo (ej., `App\Models\User`).
+     - `model_id`: ID del modelo relacionado.
 
-## Laravel Sponsors
+5. **`role_has_permissions`**:
+   - Relaciona roles con permisos.
+   - Campos principales:
+     - `permission_id`: ID del permiso.
+     - `role_id`: ID del rol.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- La entidad `User` se relaciona con estas tablas a través de los modelos de Laravel y el paquete.
+- De forma que un usuario (`User`) puede:
+  - Tener **roles** asignados mediante la tabla `model_has_roles`.
+  - Tener **permisos** asignados directamente mediante la tabla `model_has_permissions`.
+  - Obtener permisos indirectamente a través de los roles asignados, definidos en la tabla `role_has_permissions`.
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+### Controlador `UsersController`
+El controlador [`UsersController`](app/Http/Controllers/UsersController.php) maneja la lógica de negocio relacionada con los usuarios. Este incluye métodos para:
+- Listar usuarios.
+- Crear nuevos usuarios.
+- Actualizar información de usuarios existentes.
+- Eliminar usuarios.
 
-## Contributing
+### Vistas de la carpeta `Users`
+Las vistas relacionadas con la gestión de usuarios están ubicadas en `resources/js/Pages/Users`. Estas vistas incluyen:
+- **Index.vue**: Muestra la lista de usuarios y da acceso a las funciones de editar, agregar y eliminar.
+- **UsersModal.vue**: Formulario para crear un nuevo usuario o editar uno existente.
+- **Pagination.vue**: Componente que permite la paginación de los registros en `Index.vue`.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+### Paquetes requeridos
+- **spatie/laravel-permission**: Encargado de la creación de las tablas para permisos y roles.
+- **laravel-lang**: Ofrece paquetes de traducción para distintos idiomas.
+- **fontawesome**: Permite el uso de iconos dentro de la aplicación
+- **bootstrap**: Conjunto de métodos css y js que permiten una personalización rápida para etiquetas y componentes.
+- **sweetalert2**: Conjunto de métodos js que permiten mostrar mensajes y alertas en el navegador.
+- **maatwebsite/excel**: Paquete que implementa métodos para agilizar el proceso de importación y exportación de archivos csv y xlsx
 
-## Code of Conduct
+## Requisitos del sistema
+- PHP 8.x
+- Composer
+- Node.js y npm
+- Base de datos compatible con Laravel (PostgreSQL)
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Instalación
+1. Clona este repositorio.
+2. Instala las dependencias de PHP:
+   ```bash
+   composer install
 
-## Security Vulnerabilities
+3. Instala las dependencias de JavaScript:
+    ```bash
+    npm install
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+4. Configura el archivo .env con tus credenciales de base de datos.
 
-## License
+5. Ejecuta las migraciones:
+    ```bash
+    php artisan migrate
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+6. Ejecuta los Seeders:
+    ```bash
+    php artisan db:seed
+Dentro de estos archivos se encuentran los roles necesarios para la correcta ejecución de la app y se incluyen 15 usuarios mediante Factory.
+
+7. Inicia el servidor de desarrollo:
+    ```bash
+    php artisan serve
+    npm run dev
