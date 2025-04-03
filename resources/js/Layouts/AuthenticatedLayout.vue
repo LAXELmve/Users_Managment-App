@@ -151,7 +151,16 @@ const showingNavigationDropdown = ref(false);
                             :href="route('dashboard')"
                             :active="route().current('dashboard')"
                         >
-                            Dashboard
+                            Home
+                        </ResponsiveNavLink>
+                    </div>
+
+                    <div class="space-y-1 pb-3 pt-2">
+                        <ResponsiveNavLink
+                            :href="route('users.index')"
+                            :active="route().current('users.index')"
+                        >
+                            Users Managment
                         </ResponsiveNavLink>
                     </div>
 
