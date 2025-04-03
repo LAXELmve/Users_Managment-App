@@ -1,6 +1,9 @@
 import '../css/app.css';
 import './bootstrap';
 
+import * as bootstrap from 'bootstrap';
+import * as Popper from '@popperjs/core';
+
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
 import { createApp, h } from 'vue';
@@ -27,3 +30,5 @@ createInertiaApp({
         color: '#4B5563',
     },
 });
+
+/* import 'bootstrap/dist/js/bootstrap'; */
