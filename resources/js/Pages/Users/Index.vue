@@ -67,17 +67,28 @@ const openModal = (user) => {
                 >
                     
                     <div class="container-fluid mt-3 bg-white">
-                        <div class="row mt-3">
+                        <div class="row mt-3 mx-10 justify-content-between">
 
-                            <div class="col-md-4 offset-md-4">
-                                <div class="d-grid mx-auto">
+                            <div class="col-4 text-start">
+                                <div class="">
                                     <button 
                                         class="btn btn-primary"
                                         data-bs-toggle="modal"
                                         data-bs-target="#modalCreate"
                                     >
-                                    <i class="fa-solid fa-plus"></i> Añadir Usuario
+                                        <i class="fa-solid fa-plus"></i> Añadir Usuario
                                     </button>
+                                </div>
+                            </div>
+
+                            <div class="col-4 text-end">
+                                <div class="">
+                                    <a 
+                                        class="btn btn-secondary"
+                                        href="/users-export"
+                                    >
+                                        <i class="fa-solid fa-file-export"></i> Exportar Usuarios
+                                    </a>
                                 </div>
                             </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\UsersExport;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\ProfileUpdateRequest;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 use Inertia\Response;
+use Maatwebsite\Excel\Facades\Excel;
 
 class UsersController extends Controller
 {
@@ -110,5 +112,10 @@ class UsersController extends Controller
         }
         
         return Redirect::route('dashboard');
+    }
+
+    public function export()
+    {
+        return Excel::download(new UsersExport, 'users.csv');
     }
 }
