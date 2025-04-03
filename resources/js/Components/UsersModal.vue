@@ -21,6 +21,10 @@ const props = defineProps({
     },
 });
 
+const cleanInput = (field, regex) => {
+    form[field] = form[field].replace(regex, '');
+};
+
 const form = useForm({
     id: props.user.id,
     name: props.user.name,
@@ -77,6 +81,7 @@ const close = () => {
                                 v-model="form.name"
                                 required
                                 autofocus
+                                @input="cleanInput('name', /[^a-zA-Z0-9\s]/g)"
                             />
                             <div>
                                 <small class="text-danger" v-if="form.errors.name">
@@ -110,6 +115,7 @@ const close = () => {
                                 class="form-control mt-1 block w-full"
                                 v-model="form.phone"
                                 autofocus
+                                @input="cleanInput('phone', /[^a-zA-Z0-9\+\-\(\)\s]/g)"
                             />
                             <div>
                                 <small class="text-danger" v-if="form.errors.phone">

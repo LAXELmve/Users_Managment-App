@@ -59,7 +59,7 @@ class UsersController extends Controller
                 'name' => 'required|string|max:255',
                 'email' => 'required|string|lowercase|email|max:255|unique:users',
                 'password' => 'required|string|min:8',
-                'phone' => ['string', 'max:20', 'regex:' . self::PHONE_REGEX],
+                'phone' => ['nullable', 'string', 'max:20', 'regex:' . self::PHONE_REGEX],
             ]);
 
             $user = User::create([
@@ -86,7 +86,7 @@ class UsersController extends Controller
                 'name' => 'nullable|string|max:255',
                 'email' => 'nullable|string|lowercase|email|max:255|unique:users,email',
                 'password' => 'nullable|string|min:8',
-                'phone' => 'string|max:20|regex:' . self::PHONE_REGEX,
+                'phone' => ['nullable', 'string', 'max:20', 'regex:' . self::PHONE_REGEX],
             ]);
 
             $user->update([
