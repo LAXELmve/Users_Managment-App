@@ -2,6 +2,8 @@
 
 Este proyecto es una aplicación desarrollada con Laravel Breeze, Vue.js e Inertia.js. Su propósito principal es gestionar usuarios, proporcionando una interfaz moderna y eficiente para realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) sobre la entidad `Users`.
 
+![VIsta principal](public\images\readme\example_1.jpeg)
+
 ## Características principales
 
 - **Gestión de usuarios**: La aplicación permite crear, visualizar, editar y eliminar usuarios. Así como exportar los registros en un archivo CSV.
@@ -70,6 +72,8 @@ El controlador [`UsersController`](app/Http/Controllers/UsersController.php) man
 Las vistas relacionadas con la gestión de usuarios están ubicadas en `resources/js/Pages/Users`. Estas vistas incluyen:
 - **Index.vue**: Muestra la lista de usuarios y da acceso a las funciones de editar, agregar y eliminar.
 - **UsersModal.vue**: Formulario para crear un nuevo usuario o editar uno existente.
+    - En el formulario de crear usuario los campos de Nombre, Email y Contraseña son obligatorios.
+    - Para el formulario de Editar Usuario; Contraseña no es obligatoria. 
 - **Pagination.vue**: Componente que permite la paginación de los registros en `Index.vue`.
 
 ### Paquetes requeridos
@@ -88,6 +92,9 @@ Las vistas relacionadas con la gestión de usuarios están ubicadas en `resource
 
 ## Instalación
 1. Clona este repositorio.
+    ```bash
+    git clone https://github.com/LAXELmve/Users_Managment-App.git
+    cd users_managment-app
 2. Instala las dependencias de PHP:
    ```bash
    composer install
@@ -96,7 +103,13 @@ Las vistas relacionadas con la gestión de usuarios están ubicadas en `resource
     ```bash
     npm install
 
-4. Configura el archivo .env con tus credenciales de base de datos.
+4. Configura el archivo .env con tus credenciales de base de datos. Puede apoyarse del archivo `.env.example`.
+    ```bash
+    cp .env.example .env
+
+Ejecutar el siguiente comando para generar la clave de la aplicación:
+    
+    php artisan key:generate
 
 5. Ejecuta las migraciones:
     ```bash
@@ -105,9 +118,10 @@ Las vistas relacionadas con la gestión de usuarios están ubicadas en `resource
 6. Ejecuta los Seeders:
     ```bash
     php artisan db:seed
+
 Dentro de estos archivos se encuentran los roles necesarios para la correcta ejecución de la app y se incluyen 15 usuarios mediante Factory.
 
 7. Inicia el servidor de desarrollo:
     ```bash
-    php artisan serve
     npm run dev
+    php artisan serve
