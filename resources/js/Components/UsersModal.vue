@@ -133,6 +133,8 @@ const close = () => {
                                 class="form-control mt-1 block w-full"
                                 v-model="form.password"
                                 autofocus
+                                :required="op == '1'"
+                                :placeholder="op === '2' ? 'Dejar vacio para conservar la contraseña actual' : ''"
                             />
                             <div>
                                 <small class="text-danger" v-if="form.errors.password">

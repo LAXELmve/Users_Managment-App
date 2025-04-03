@@ -150,7 +150,8 @@ const openModal = (user) => {
                                                     <button 
                                                         class="btn btn-danger"
                                                         @click="changeRoleUser(user.id, user.name)"
-                                                    >
+                                                        title="Cambiar Rol"
+                                                        >
                                                         <i class="fa-solid fa-repeat"></i>
                                                     </button>
 
@@ -160,6 +161,7 @@ const openModal = (user) => {
                                                         data-bs-toggle="modal"
                                                         data-bs-target="#modalEdit"
                                                         @click="openModal(user)"
+                                                        title="Modificar Usuario"
                                                     >
                                                         <i class="fa-solid fa-pen-to-square"></i>
                                                     </button>
@@ -168,7 +170,8 @@ const openModal = (user) => {
                                                     <button 
                                                         class="btn btn-danger"
                                                         @click="deleteUser(user.id, user.name)"
-                                                    >
+                                                        title="Eliminar Usuario"
+                                                        >
                                                         <i class="fa-solid fa-trash"></i>
                                                     </button>
 
