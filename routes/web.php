@@ -26,6 +26,7 @@ Route::group(['middleware' => ['auth']],function () {
     Route::get('/users/{user}', [UsersController::class, 'show'])->name('users.show');
     Route::put('/users/{user}', [UsersController::class, 'update'])->name('users.update');
     Route::delete('/users/{user}', [UsersController::class, 'destroy'])->name('users.destroy');
+    Route::put('/users-switchRole/{user}', [UsersController::class, 'switchRole'])->name('users.change');
 
     Route::get('/users-export', [UsersController::class, 'export'])->name('users.export');
 });

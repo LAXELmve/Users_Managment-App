@@ -40,6 +40,32 @@ const deleteUser = (id, name) => {
     });
 };
 
+const changeRoleUser = (id, name) => {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: `¿Quieres cambiar el rol de ${name}?`,
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Sí, cambiar!',
+        cancelButtonText: 'Cancelar',
+    }).then((result) => {
+        if (result.isConfirmed) {
+            form.put(route('users.change', id), {
+                preserveScroll: true,
+                onSuccess: () => {
+                    Swal.fire(
+                        'Rol modificado!',
+                        `El rol de ${name} cambió.`,
+                        'success'
+                    );
+                },
+            });
+        }
+    });
+};
+
 const openModal = (user) => {
     document.getElementById('id2').value = user.id;
     document.getElementById('name2').value = user.name;
@@ -120,6 +146,14 @@ const openModal = (user) => {
                                                     </span>
                                                 </td>
                                                 <td class="text-center">
+                                                    <!-- Cambiar Role -->
+                                                    <button 
+                                                        class="btn btn-danger"
+                                                        @click="changeRoleUser(user.id, user.name)"
+                                                    >
+                                                        <i class="fa-solid fa-repeat"></i>
+                                                    </button>
+
                                                     <!-- Editar -->
                                                     <button 
                                                         class="btn btn-warning"

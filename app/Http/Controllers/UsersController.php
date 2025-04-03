@@ -114,6 +114,24 @@ class UsersController extends Controller
         return Redirect::route('dashboard');
     }
 
+    public function switchRole($id): RedirectResponse
+    {
+        if (self::userRoleValidation()) {
+            $user = User::findOrFail($id);
+            if ($user->hasRole('admin')) {
+                $user->removeRole('admin');
+                $user->assignRole('user');
+            } else {
+                $user->removeRole('user');
+                $user->assignRole('admin');
+            }
+
+            return Redirect::route('users.index');
+        }
+        
+        return Redirect::route('dashboard');
+    }
+
     public function export()
     {
         return Excel::download(new UsersExport, 'users.csv');
