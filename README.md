@@ -112,7 +112,7 @@ Las vistas relacionadas con la gestión de usuarios están ubicadas en `resource
     cp .env.example .env
     ```
 
-Agrega la contraseña de la base de datos
+Agrega la contraseña de la base de datos (BD creada previamente).
     
     DB_PASSWORD="a8fPKX6C9!$"
     
