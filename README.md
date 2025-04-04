@@ -92,32 +92,45 @@ Las vistas relacionadas con la gestión de usuarios están ubicadas en `resource
 
 ## Instalación
 1. Clona este repositorio.
-    ```bash
+   ```bash
     git clone https://github.com/LAXELmve/Users_Managment-App.git
     cd users_managment-app
-2. Instala las dependencias de PHP:
+    ```
+
+3. Instala las dependencias de PHP:
    ```bash
    composer install
+   ```
 
-3. Instala las dependencias de JavaScript:
+4. Instala las dependencias de JavaScript:
     ```bash
     npm install
+    ```
 
-4. Configura el archivo .env con tus credenciales de base de datos. Puede apoyarse del archivo `.env.example`.
+5. Configura el archivo .env con tus credenciales de base de datos. Puede apoyarse del archivo `.env.example`.
     ```bash
     cp .env.example .env
+    ```
+
+Agrega la contraseña de la base de datos
+    
+    DB_PASSWORD="a8fPKX6C9!$"
+    
 
 Ejecutar el siguiente comando para generar la clave de la aplicación:
     
     php artisan key:generate
+    
 
 5. Ejecuta las migraciones:
     ```bash
     php artisan migrate
+    ```
 
 6. Ejecuta los Seeders:
     ```bash
     php artisan db:seed
+    ```
 
 Dentro de estos archivos se encuentran los roles necesarios para la correcta ejecución de la app y se incluyen 15 usuarios mediante Factory.
 
@@ -125,3 +138,22 @@ Dentro de estos archivos se encuentran los roles necesarios para la correcta eje
     ```bash
     npm run dev
     php artisan serve
+    ```
+
+En el seeder se crear un usuario con rol user:
+    
+    User::create([
+        'name' => 'User 1',
+        'email' => 'user1@example.com',
+        'password' => bcrypt('123456789'),
+    ]);
+    
+
+Y se crea un usuario con rol admin:
+
+    User::create([
+        'name' => 'Admin User',
+        'email' => 'admin@example.com',
+        'password' => bcrypt('password123'),
+    ]);
+    
